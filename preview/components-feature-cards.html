@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { background: #0A0A0F; padding: 32px 28px; }
+
+  .section-header {
+    text-align: center; margin-bottom: 36px;
+  }
+  .section-header h2 {
+    font-family: var(--font-sans); font-size: 28px; font-weight: 800; color: #F8FAFC;
+    letter-spacing: -0.03em; line-height: 1.1; display: inline-block; position: relative;
+  }
+  .section-header h2::after {
+    content: ''; position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%);
+    width: 48px; height: 3px; border-radius: 2px;
+    background: linear-gradient(90deg, #2563EB, #7C3AED); box-shadow: 0 0 12px rgba(37,99,235,0.4);
+  }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+  .card {
+    position: relative; border-radius: 16px; padding: 32px; display: flex; flex-direction: column; gap: 12px;
+    background: rgba(15,17,23,0.85); backdrop-filter: blur(12px);
+    border: 1px solid rgba(37,99,235,0.15);
+    box-shadow: 0 0 1px rgba(37,99,235,0.3), 0 0 12px rgba(37,99,235,0.06), 0 4px 20px rgba(0,0,0,0.4);
+    overflow: hidden; transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(37,99,235,0.45);
+    box-shadow: 0 0 1px rgba(37,99,235,0.6), 0 0 24px rgba(37,99,235,0.15), 0 0 60px rgba(37,99,235,0.08), 0 12px 40px rgba(0,0,0,0.5);
+  }
+
+  /* Top-left blue light leak */
+  .card::before {
+    content: ''; position: absolute; top: -40px; left: -40px; width: 160px; height: 160px;
+    background: radial-gradient(circle, rgba(37,99,235,0.07) 0%, transparent 70%);
+    pointer-events: none; transition: opacity 0.4s;
+  }
+  .card:hover::before { opacity: 1.5; }
+
+  /* Bottom blue glow on hover */
+  .card::after {
+    content: ''; position: absolute; bottom: -20px; left: 10%; right: 10%; height: 80px;
+    background: radial-gradient(ellipse, rgba(37,99,235,0.08) 0%, transparent 70%);
+    pointer-events: none; opacity: 0; transition: opacity 0.4s;
+  }
+  .card:hover::after { opacity: 1; }
+
+  /* Animated border sweep */
+  .card .border-sweep {
+    position: absolute; inset: 0; border-radius: 16px; padding: 1px;
+    background: conic-gradient(from var(--angle, 0deg), transparent 30%, rgba(37,99,235,0.2) 50%, transparent 70%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude;
+    animation: border-spin 8s linear infinite; pointer-events: none;
+  }
+  @property --angle { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
+  @keyframes border-spin { to { --angle: 360deg; } }
+
+  .icon-wrap {
+    width: 52px; height: 52px; border-radius: 14px;
+    background: linear-gradient(145deg, #2563EB, #1E40AF);
+    box-shadow: 0 0 24px rgba(37,99,235,0.3), 0 0 48px rgba(37,99,235,0.1);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; z-index: 1;
+  }
+  .icon-wrap i, .icon-wrap svg { width: 24px; height: 24px; color: #fff; stroke: #fff; }
+
+  .card-title {
+    font-family: var(--font-sans); font-size: 18px; font-weight: 700; color: #F8FAFC;
+    letter-spacing: -0.015em; position: relative; z-index: 1; margin-top: 4px;
+  }
+  .card-desc {
+    font-family: var(--font-sans); font-size: 14px; color: #94A3B8; line-height: 1.6;
+    position: relative; z-index: 1;
+  }
+
+  .stat-pill {
+    display: inline-flex; align-items: center; gap: 6px; margin-top: 4px;
+    padding: 5px 12px; border-radius: 9999px;
+    background: rgba(37,99,235,0.08); border: 1px solid rgba(37,99,235,0.12);
+    font-family: var(--font-mono); font-size: 11px; font-weight: 500; color: #3B82F6;
+    position: relative; z-index: 1; width: fit-content;
+  }
+  .stat-pill .arrow { font-size: 12px; color: #10B981; }
+</style>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head><body>
+  <div class="section-header">
+    <h2>Everything Your Agency Needs</h2>
+  </div>
+  <div class="grid">
+    <div class="card">
+      <div class="border-sweep"></div>
+      <div class="icon-wrap"><i data-lucide="layout-dashboard"></i></div>
+      <span class="card-title">Project Management</span>
+      <span class="card-desc">Track tasks, deadlines, and team progress with kanban boards, timelines, and sprint planning.</span>
+      <div class="stat-pill"><span class="arrow">↗</span> 500+ projects managed</div>
+    </div>
+    <div class="card">
+      <div class="border-sweep"></div>
+      <div class="icon-wrap"><i data-lucide="users"></i></div>
+      <span class="card-title">Client Portal</span>
+      <span class="card-desc">Branded portal for seamless client collaboration, real-time approvals, and file exchange.</span>
+      <div class="stat-pill"><span class="arrow">↗</span> 200+ active clients</div>
+    </div>
+    <div class="card">
+      <div class="border-sweep"></div>
+      <div class="icon-wrap"><i data-lucide="bar-chart-3"></i></div>
+      <span class="card-title">Analytics</span>
+      <span class="card-desc">Revenue, utilization, and project health — all at a glance with live dashboards and reports.</span>
+      <div class="stat-pill"><span class="arrow">↗</span> Real-time insights</div>
+    </div>
+    <div class="card">
+      <div class="border-sweep"></div>
+      <div class="icon-wrap"><i data-lucide="file-text"></i></div>
+      <span class="card-title">Invoicing</span>
+      <span class="card-desc">Generate professional invoices in seconds, track payments, and send automated reminders.</span>
+      <div class="stat-pill"><span class="arrow">↗</span> $2M+ processed</div>
+    </div>
+  </div>
+  <script>lucide.createIcons();</script>
+</body></html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { background: var(--bg-root); padding: 20px 32px; display: flex; gap: 16px; align-items: center; }
+  .nav { display: flex; align-items: center; gap: 0; background: rgba(15,15,23,0.7); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 10px 20px; flex: 1; }
+  .logo { font-family: var(--font-sans); font-size: 16px; font-weight: 700; color: var(--fg-primary); margin-right: auto; display:flex;align-items:center;gap:8px; }
+  .logo img { height: 22px; }
+  .links { display: flex; gap: 24px; margin-right: 24px; }
+  .links a { font-family: var(--font-sans); font-size: 14px; color: var(--fg-secondary); text-decoration: none; }
+  .links a:hover { color: var(--fg-primary); }
+  .cta { background: var(--brand-primary); color: white; font-family: var(--font-sans); font-size: 13px; font-weight: 500; border: none; padding: 8px 18px; border-radius: 8px; cursor: pointer; }
+</style>
+</head><body>
+  <nav class="nav">
+    <div class="logo"><img src="../assets/logo-icon-dark.png" style="height:24px" /> SkillLeo</div>
+    <div class="links">
+      <a href="#">Platform</a>
+      <a href="#">Services</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+    </div>
+    <button class="cta">Get Started</button>
+  </nav>
+</body></html>

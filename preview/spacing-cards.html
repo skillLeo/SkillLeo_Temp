@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { background: var(--bg-root); padding: 24px 32px; display: flex; gap: 20px; align-items: stretch; }
+  .card { flex: 1; padding: 20px; border-radius: var(--radius-lg); display: flex; flex-direction: column; gap: 8px; }
+  .label { font-family: var(--font-mono); font-size: 10px; color: var(--fg-tertiary); }
+  .title { font-family: var(--font-sans); font-size: 14px; font-weight: 600; color: var(--fg-primary); }
+  .desc { font-family: var(--font-sans); font-size: 12px; color: var(--fg-secondary); line-height: 1.4; }
+</style>
+</head><body>
+  <div class="card" style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06)">
+    <span class="label">Default</span>
+    <span class="title">Glass Card</span>
+    <span class="desc">3% white overlay with subtle border</span>
+  </div>
+  <div class="card" style="background:rgba(15,15,23,0.7); backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,0.08)">
+    <span class="label">Glassmorphism</span>
+    <span class="title">Frosted Surface</span>
+    <span class="desc">Blur + glass border for floating panels</span>
+  </div>
+  <div class="card" style="background:rgba(255,255,255,0.03); border:1px solid rgba(37,99,235,0.3); box-shadow:0 0 24px rgba(37,99,235,0.1)">
+    <span class="label">Glow</span>
+    <span class="title">Highlighted Card</span>
+    <span class="desc">Blue border glow for featured content</span>
+  </div>
+</body></html>

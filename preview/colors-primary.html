@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { background: var(--bg-root); padding: 24px; display: flex; gap: 16px; align-items: center; }
+  .swatch { width: 80px; height: 80px; border-radius: var(--radius-md); display: flex; align-items: flex-end; padding: 6px; }
+  .swatch span { font-size: 10px; font-family: var(--font-mono); color: var(--fg-primary); opacity: 0.9; }
+  .dark-swatch span { color: var(--fg-primary); }
+</style>
+</head><body>
+  <div class="swatch" style="background:#2563EB"><span>#2563EB</span></div>
+  <div class="swatch" style="background:#1D4ED8"><span>#1D4ED8</span></div>
+  <div class="swatch" style="background:#3B82F6"><span>#3B82F6</span></div>
+  <div class="swatch" style="background:linear-gradient(135deg,#2563EB,#1D4ED8)"><span>gradient</span></div>
+  <div class="swatch" style="background:rgba(37,99,235,0.15); border:1px solid rgba(37,99,235,0.3)"><span style="color:#3B82F6">muted</span></div>
+</body></html>

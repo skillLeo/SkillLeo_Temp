@@ -1,0 +1,92 @@
+# ============================================================
+# robots.txt — SkillLeo (SMC-Private) Limited
+# https://skillleo.com/robots.txt
+# ============================================================
+
+# Allow all well-behaved crawlers
+User-agent: *
+Allow: /
+Allow: /about
+Allow: /services
+Allow: /contact
+
+# Block common junk paths (no such paths exist, declared for safety)
+Disallow: /admin/
+Disallow: /wp-admin/
+Disallow: /wp-login.php
+Disallow: /.env
+Disallow: /config/
+Disallow: /private/
+Disallow: /*.sql$
+Disallow: /*.log$
+
+# Crawl-delay for polite bots
+Crawl-delay: 1
+
+# ── Googlebot ──────────────────────────────────────────────
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Googlebot-Mobile
+Allow: /
+
+# ── Bingbot ────────────────────────────────────────────────
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# ── DuckDuckGo ─────────────────────────────────────────────
+User-agent: DuckDuckBot
+Allow: /
+
+# ── Yandex ─────────────────────────────────────────────────
+User-agent: YandexBot
+Allow: /
+
+# ── Baidu ──────────────────────────────────────────────────
+User-agent: Baiduspider
+Allow: /
+
+# ── Apple Applebot ─────────────────────────────────────────
+User-agent: Applebot
+Allow: /
+
+# ── Social crawlers ────────────────────────────────────────
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+# ── AI crawlers ────────────────────────────────────────────
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+# ── Sitemaps ───────────────────────────────────────────────
+Sitemap: https://skillleo.com/sitemap.xml
+Sitemap: https://skillleo.com/sitemap-images.xml
+
+# Host directive (Yandex)
+Host: https://skillleo.com

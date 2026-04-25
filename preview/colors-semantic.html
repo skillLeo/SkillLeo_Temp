@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { background: var(--bg-root); padding: 24px; display: flex; gap: 16px; align-items: center; }
+  .group { display: flex; gap: 8px; align-items: center; }
+  .swatch { width: 48px; height: 48px; border-radius: var(--radius-md); }
+  .muted { width: 48px; height: 48px; border-radius: var(--radius-md); }
+  .label { font-family: var(--font-mono); font-size: 11px; color: var(--fg-tertiary); margin-right: 4px; }
+</style>
+</head><body>
+  <div class="group">
+    <span class="label">Success</span>
+    <div class="swatch" style="background:#10B981"></div>
+    <div class="muted" style="background:rgba(16,185,129,0.15); border:1px solid rgba(16,185,129,0.3)"></div>
+  </div>
+  <div class="group">
+    <span class="label">Warning</span>
+    <div class="swatch" style="background:#F59E0B"></div>
+    <div class="muted" style="background:rgba(245,158,11,0.15); border:1px solid rgba(245,158,11,0.3)"></div>
+  </div>
+  <div class="group">
+    <span class="label">Error</span>
+    <div class="swatch" style="background:#EF4444"></div>
+    <div class="muted" style="background:rgba(239,68,68,0.15); border:1px solid rgba(239,68,68,0.3)"></div>
+  </div>
+</body></html>
