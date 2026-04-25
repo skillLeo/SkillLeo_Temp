@@ -30,7 +30,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
-          port: 22
+          port: 65002
           script: |
             find ~/public_html -mindepth 1 \
               ! -name '.htaccess' \
@@ -42,7 +42,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
-          port: 22
+          port: 65002
           source: "skillleo-website/dist/*"
           target: "~/public_html/"
           strip_components: 2
