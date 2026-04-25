@@ -1,13 +1,10 @@
 name: Deploy SkillLeo to Hostinger
-
 on:
   push:
     branches: [main]
-
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -27,12 +24,25 @@ jobs:
         working-directory: skillleo-website
         run: npm run build
 
-      - name: Deploy dist/ to Hostinger via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      - name: Clear old files on server
+        uses: appleboy/ssh-action@v1.0.3
         with:
-          server: ${{ secrets.FTP_HOST }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./skillleo-website/dist/
-          server-dir: /public_html/
-          dangerous-clean-slate: false
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: 22
+          script: |
+            find ~/public_html -mindepth 1 \
+              ! -name '.htaccess' \
+              -delete
+
+      - name: Upload dist via SCP
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: 22
+          source: "skillleo-website/dist/*"
+          target: "~/public_html/"
+          strip_components: 2
