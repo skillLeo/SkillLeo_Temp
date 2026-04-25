@@ -1,5 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
-@import 'leaflet/dist/leaflet.css';
+/* Google Fonts loaded via <link> in index.html with preconnect for speed */
+/* Leaflet CSS loaded lazily inside WorldMap.jsx to avoid blocking initial render */
+
+/* CSS-only bar animation — zero JS main-thread cost */
+@keyframes barGrow {
+  from { transform: scaleY(0); transform-origin: bottom; }
+  to   { transform: scaleY(1); transform-origin: bottom; }
+}
 
 /* ── Leaflet overrides — premium styling ── */
 .leaflet-tooltip {

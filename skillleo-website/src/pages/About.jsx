@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Shield, Award, CheckCircle, Zap, Target, Users, Star } from 'lucide-react';
 import TrustSection from '../components/TrustSection';
 import { useCounter } from '../hooks/useCounter';
-import logoIconBlue from '../assets/logo-icon-blue.png';
+import logoIconBlue from '../assets/logo-icon-blue.webp';
 
 const TEAM_ROLES = [
   'Laravel Developer', 'React Developer', 'Flutter Developer', 'AI Engineer',

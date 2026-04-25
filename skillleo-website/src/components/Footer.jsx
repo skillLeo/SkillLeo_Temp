@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin, ExternalLink } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
-import logoHLight from '../assets/logo-horizontal-light.png';
-import logoHBlue from '../assets/logo-horizontal-blue.png';
+import logoHLight from '../assets/logo-horizontal-light.webp';
+import logoHBlue from '../assets/logo-horizontal-blue.webp';
 
 const COL = {
   Company: [
@@ -45,7 +45,7 @@ export default function Footer() {
 
           {/* Brand */}
           <div className="lg:col-span-2 space-y-4">
-            <img src={logo} alt="SkillLeo" className="h-8 w-auto" />
+            <img src={logo} alt="SkillLeo" className="h-8 w-auto" width="160" height="32" loading="lazy" decoding="async" />
             <p className="text-sm text-slate-500 dark:text-slate-500 leading-relaxed max-w-xs">
               Pakistan's most trusted software development company. Certified by SECP and PSEB. Delivering world-class digital products to 50+ countries since 2018.
             </p>

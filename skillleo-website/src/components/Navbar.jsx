@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { Menu, X, ArrowRight } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import ThemeToggle from './ThemeToggle';
-import logoIconBlue from '../assets/logo-icon-blue.png';
-import logoIconDark from '../assets/logo-icon-dark.png';
+import logoIconBlue from '../assets/logo-icon-blue.webp';
+import logoIconDark from '../assets/logo-icon-dark.webp';
 
 const LINKS = [
   { label: 'Home',      path: '/' },
@@ -40,6 +40,7 @@ export default function Navbar() {
   useEffect(() => { setMobile(false); }, [pathname]);
 
   const logo = isDark ? logoIconDark : logoIconBlue;
+  const prefersReduced = useReducedMotion();
 
   return (
     <>
@@ -47,7 +48,7 @@ export default function Navbar() {
       <motion.header
         initial={false}
         animate={{ y: visible ? 0 : -88 }}
-        transition={{ duration: 0.28, ease: [0.4, 0, 0.2, 1] }}
+        transition={prefersReduced ? { duration: 0 } : { duration: 0.28, ease: [0.4, 0, 0.2, 1] }}
         className="fixed top-0 inset-x-0 z-50"
       >
         {/* The actual bar — full width like Apple.com */}
@@ -69,7 +70,7 @@ export default function Navbar() {
 
             {/* ── Logo ── */}
             <Link to="/" className="flex items-center gap-2.5 mr-4 shrink-0">
-              <img src={logo} alt="SkillLeo" className="h-[26px] w-auto" />
+              <img src={logo} alt="SkillLeo" className="h-[26px] w-auto" width="26" height="26" fetchpriority="high" />
               <span className="font-heading font-extrabold text-[15px] tracking-[-0.02em]
                 text-slate-900 dark:text-white hidden sm:block">
                 SkillLeo
@@ -175,7 +176,7 @@ export default function Navbar() {
               <div className="flex items-center justify-between px-5 h-14
                 border-b border-slate-100 dark:border-white/[0.05]">
                 <div className="flex items-center gap-2">
-                  <img src={logo} alt="" className="h-6" />
+                  <img src={logo} alt="SkillLeo" className="h-6" width="24" height="24" loading="lazy" />
                   <span className="font-heading font-bold text-[14px] text-slate-900 dark:text-white">
                     SkillLeo
                   </span>

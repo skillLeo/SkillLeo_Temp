@@ -1,6 +1,6 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowRight, ShieldCheck, BadgeCheck, Building2, FileText, Play } from 'lucide-react';
 
 /* ─── Typing animation ─── */
@@ -75,16 +75,17 @@ function StatCard() {
           ))}
         </div>
 
-        {/* Bar chart */}
+        {/* Bar chart — CSS-only animation, zero JS main-thread cost */}
         <div className="bg-white/[0.02] rounded-xl p-3 border border-white/[0.03] h-[88px] flex items-end gap-[3px]">
           {[38,60,44,78,52,90,68,84,58,96,72,88].map((h,i) => (
-            <motion.div
+            <div
               key={i}
-              initial={{ height: 0 }}
-              animate={{ height: `${h}%` }}
-              transition={{ delay: 0.4 + i * 0.04, duration: 0.55, ease: 'easeOut' }}
               className="flex-1 rounded-sm"
-              style={{ background:`linear-gradient(to top, rgba(37,99,235,${0.18+i*0.04}), rgba(59,130,246,0.75))` }}
+              style={{
+                height: `${h}%`,
+                background: `linear-gradient(to top, rgba(37,99,235,${0.18+i*0.04}), rgba(59,130,246,0.75))`,
+                animation: `barGrow 0.5s ease-out ${0.3 + i * 0.03}s both`,
+              }}
             />
           ))}
         </div>
@@ -123,6 +124,8 @@ function StatCard() {
 
 export default function HeroSection() {
   const typedText = useTyping(WORDS);
+  const prefersReduced = useReducedMotion();
+  const anim = (props) => prefersReduced ? {} : props;
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden pt-20">
@@ -157,9 +160,7 @@ export default function HeroSection() {
 
             {/* Certified badge */}
             <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55 }}
+              {...anim({ initial: { opacity: 0, y: 16 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.45 } })}
               className="inline-flex items-center gap-2.5 pl-1.5 pr-4 py-1.5 rounded-full mb-7
                 bg-emerald-50 dark:bg-emerald-600/10
                 border border-emerald-200 dark:border-emerald-600/20"
@@ -175,9 +176,7 @@ export default function HeroSection() {
 
             {/* Headline */}
             <motion.h1
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 0.08 }}
+              {...anim({ initial: { opacity: 0, y: 18 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.5, delay: 0.05 } })}
               className="font-heading font-black leading-[1.03] tracking-[-0.045em] mb-5
                 text-[clamp(2.6rem,5.5vw,4.6rem)]"
             >
@@ -191,9 +190,7 @@ export default function HeroSection() {
 
             {/* Subtext */}
             <motion.p
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, delay: 0.16 }}
+              {...anim({ initial: { opacity: 0, y: 14 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.45, delay: 0.1 } })}
               className="text-lg leading-relaxed text-slate-600 dark:text-slate-400 mb-9 max-w-[500px]"
             >
               Pakistan's elite software team of 25+ engineers and designers. Trusted by 120+ international clients across 50+ countries to deliver world-class digital products.
@@ -201,9 +198,7 @@ export default function HeroSection() {
 
             {/* CTAs */}
             <motion.div
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.22 }}
+              {...anim({ initial: { opacity: 0, y: 10 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.4, delay: 0.15 } })}
               className="flex flex-wrap gap-3.5 mb-10"
             >
               <Link to="/contact" className="btn-primary text-base h-12 px-7 gap-2">
@@ -218,17 +213,13 @@ export default function HeroSection() {
 
             {/* Trust badges */}
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.7, delay: 0.4 }}
+              {...anim({ initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.5, delay: 0.25 } })}
               className="flex flex-wrap gap-2"
             >
               {BADGES.map((b, i) => (
                 <motion.div
                   key={b.label}
-                  initial={{ opacity: 0, x: -8 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.42 + i * 0.07 }}
+                  {...anim({ initial: { opacity: 0, x: -6 }, animate: { opacity: 1, x: 0 }, transition: { delay: 0.28 + i * 0.05 } })}
                   className={`shimmer-badge inline-flex items-center gap-2 pl-2.5 pr-3.5 py-2
                     rounded-xl border text-xs font-medium ${BADGE_CLS[b.color]}`}
                 >
@@ -244,9 +235,7 @@ export default function HeroSection() {
 
           {/* ───── Right: floating dashboard ───── */}
           <motion.div
-            initial={{ opacity: 0, x: 36, scale: 0.96 }}
-            animate={{ opacity: 1, x: 0, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
+            {...anim({ initial: { opacity: 0, x: 24, scale: 0.97 }, animate: { opacity: 1, x: 0, scale: 1 }, transition: { duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] } })}
             className="flex-1 flex justify-center lg:justify-end w-full lg:max-w-[380px]"
           >
             <StatCard />

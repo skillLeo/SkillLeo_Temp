@@ -2,6 +2,8 @@ import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { MapContainer, TileLayer, CircleMarker, Tooltip, useMap } from 'react-leaflet';
 import { useTheme } from '../context/ThemeContext';
+// Load Leaflet CSS lazily — keeps it out of the critical render path
+import 'leaflet/dist/leaflet.css';
 
 /* ─── Client locations ─── */
 const LOCATIONS = [

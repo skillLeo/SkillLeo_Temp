@@ -1,31 +1,42 @@
 # ============================================================
 #  SkillLeo — Apache .htaccess
-#  For compiled Vite React SPA deployed to public_html/
+#  Vite React SPA · Hostinger shared hosting
 # ============================================================
 
 Options -Indexes
 DirectoryIndex index.html
 
-# ── Security headers ────────────────────────────────────────
+# ── Keep-Alive ───────────────────────────────────────────────
+<IfModule mod_headers.c>
+    Header set Connection keep-alive
+</IfModule>
+
+# ── Disable ETags (avoids double validation round-trip) ──────
+FileETag None
+<IfModule mod_headers.c>
+    Header unset ETag
+</IfModule>
+
+# ── Security headers ─────────────────────────────────────────
 <IfModule mod_headers.c>
     Header always set X-Content-Type-Options "nosniff"
     Header always set X-Frame-Options "SAMEORIGIN"
     Header always set X-XSS-Protection "1; mode=block"
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
 </IfModule>
 
-# ── Force HTTPS & remove www ─────────────────────────────────
+# ── Single-hop redirect: HTTP/www → HTTPS no-www ────────────
+#    Combined rule prevents redirect chain (audit: Avoid multiple redirects)
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteBase /
 
-    # Force HTTPS
-    RewriteCond %{HTTPS} off
-    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-
-    # Remove www
-    RewriteCond %{HTTP_HOST} ^www\.skillleo\.com [NC]
-    RewriteRule ^(.*)$ https://skillleo.com/$1 [L,R=301]
+    # HTTP + www  →  https://skillleo.com/...
+    RewriteCond %{HTTPS} off [OR]
+    RewriteCond %{HTTP_HOST} ^www\. [NC]
+    RewriteCond %{HTTP_HOST} ^(?:www\.)?(.+)$ [NC]
+    RewriteRule ^ https://skillleo.com%{REQUEST_URI} [R=301,L]
 
     # React Router — send all non-file/dir requests to index.html
     RewriteCond %{REQUEST_FILENAME} !-f
@@ -35,31 +46,62 @@ DirectoryIndex index.html
 
 # ── MIME types ───────────────────────────────────────────────
 <IfModule mod_mime.c>
-    AddType application/javascript .js
-    AddType application/manifest+json .webmanifest
-    AddType image/webp .webp
-    AddType image/svg+xml .svg
-    AddType font/woff2 .woff2
+    AddType application/javascript         .js .mjs
+    AddType application/manifest+json      .webmanifest
+    AddType image/webp                     .webp
+    AddType image/avif                     .avif
+    AddType image/svg+xml                  .svg
+    AddType font/woff2                     .woff2
+    AddType font/woff                      .woff
 </IfModule>
 
-# ── Browser caching ──────────────────────────────────────────
+# ── Cache-Control ────────────────────────────────────────────
+<IfModule mod_headers.c>
+    # Vite content-hashed assets — cache 1 year, immutable
+    <FilesMatch "\.[0-9a-f]{8,}\.(js|mjs|css|woff2?|webp|avif|png|jpg|jpeg|svg|ico)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+
+    # index.html — must revalidate (SPA entry point, no content hash)
+    <FilesMatch "^index\.html$">
+        Header set Cache-Control "public, max-age=3600, must-revalidate"
+    </FilesMatch>
+
+    # Manifest and robots
+    <FilesMatch "\.(webmanifest|json|xml|txt)$">
+        Header set Cache-Control "public, max-age=604800"
+    </FilesMatch>
+</IfModule>
+
+# ── Expires fallback (for hosts without mod_headers) ────────
 <IfModule mod_expires.c>
     ExpiresActive On
-    # HTML — short cache (app updates need to reach users)
-    ExpiresByType text/html "access plus 1 hour"
-    # Vite hashed assets — cache forever (content-addressed)
-    ExpiresByType application/javascript "access plus 1 year"
-    ExpiresByType text/css "access plus 1 year"
-    ExpiresByType image/png "access plus 6 months"
-    ExpiresByType image/jpeg "access plus 6 months"
-    ExpiresByType image/webp "access plus 6 months"
-    ExpiresByType image/svg+xml "access plus 6 months"
-    ExpiresByType image/x-icon "access plus 1 year"
-    ExpiresByType font/woff2 "access plus 1 year"
-    ExpiresByType application/manifest+json "access plus 1 week"
+    ExpiresByType text/html                  "access plus 1 hour"
+    ExpiresByType application/javascript     "access plus 1 year"
+    ExpiresByType text/css                   "access plus 1 year"
+    ExpiresByType image/png                  "access plus 6 months"
+    ExpiresByType image/jpeg                 "access plus 6 months"
+    ExpiresByType image/webp                 "access plus 6 months"
+    ExpiresByType image/avif                 "access plus 6 months"
+    ExpiresByType image/svg+xml              "access plus 6 months"
+    ExpiresByType image/x-icon               "access plus 1 year"
+    ExpiresByType font/woff2                 "access plus 1 year"
+    ExpiresByType font/woff                  "access plus 1 year"
+    ExpiresByType application/manifest+json  "access plus 1 week"
 </IfModule>
 
-# ── Gzip compression ─────────────────────────────────────────
+# ── Brotli compression (preferred, lower CPU than gzip) ─────
+<IfModule mod_brotli.c>
+    AddOutputFilterByType BROTLI_COMPRESS text/html
+    AddOutputFilterByType BROTLI_COMPRESS text/css
+    AddOutputFilterByType BROTLI_COMPRESS application/javascript
+    AddOutputFilterByType BROTLI_COMPRESS application/json
+    AddOutputFilterByType BROTLI_COMPRESS image/svg+xml
+    AddOutputFilterByType BROTLI_COMPRESS font/woff2
+    AddOutputFilterByType BROTLI_COMPRESS application/manifest+json
+</IfModule>
+
+# ── Gzip compression (fallback) ──────────────────────────────
 <IfModule mod_deflate.c>
     AddOutputFilterByType DEFLATE text/html
     AddOutputFilterByType DEFLATE text/css
@@ -67,4 +109,10 @@ DirectoryIndex index.html
     AddOutputFilterByType DEFLATE application/json
     AddOutputFilterByType DEFLATE image/svg+xml
     AddOutputFilterByType DEFLATE font/woff2
+    AddOutputFilterByType DEFLATE application/manifest+json
+
+    # Remove compression for old broken browsers
+    BrowserMatch ^Mozilla/4 gzip-only-text/html
+    BrowserMatch ^Mozilla/4\.0[678] no-gzip
+    BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
 </IfModule>
