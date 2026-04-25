@@ -1,54 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
-        xsi:schemaLocation="
-          http://www.sitemaps.org/schemas/sitemap/0.9
-          http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-
-  <!-- Home Page — highest priority -->
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://skillleo.com/</loc>
-    <lastmod>2025-07-01</lastmod>
+    <lastmod>2026-04-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <image:image>
-      <image:loc>https://skillleo.com/og-image.jpg</image:loc>
-      <image:title>SkillLeo — Pakistan's Certified Software Development Company</image:title>
-      <image:caption>SECP &amp; PSEB certified software development. 120+ clients, 200+ projects, 50+ countries.</image:caption>
-    </image:image>
+    <xhtml:link rel="alternate" hreflang="en" href="https://skillleo.com/" />
   </url>
-
-  <!-- Services Page -->
-  <url>
-    <loc>https://skillleo.com/services</loc>
-    <lastmod>2025-07-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.95</priority>
-  </url>
-
-  <!-- About Page -->
   <url>
     <loc>https://skillleo.com/about</loc>
-    <lastmod>2025-07-01</lastmod>
+    <lastmod>2026-04-25</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.90</priority>
+    <priority>0.8</priority>
   </url>
-
-  <!-- Portfolio Page -->
   <url>
-    <loc>https://skillleo.com/portfolio</loc>
-    <lastmod>2025-07-01</lastmod>
+    <loc>https://skillleo.com/services</loc>
+    <lastmod>2026-04-25</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
+    <priority>0.9</priority>
   </url>
-
-  <!-- Contact Page -->
   <url>
     <loc>https://skillleo.com/contact</loc>
-    <lastmod>2025-07-01</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.80</priority>
+    <lastmod>2026-04-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
-
 </urlset>
