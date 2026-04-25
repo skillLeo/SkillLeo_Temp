@@ -48,7 +48,7 @@ const BADGE_CLS = {
 function StatCard() {
   return (
     <motion.div
-      className="float w-full max-w-[340px] rounded-2xl overflow-hidden
+      className="float w-full max-w-[340px] sm:max-w-[360px] rounded-2xl overflow-hidden
         bg-[#0C0E1A] border border-white/[0.08]
         shadow-[0_24px_80px_rgba(0,0,0,0.5),0_0_0_1px_rgba(255,255,255,0.04)]"
     >
@@ -152,11 +152,11 @@ export default function HeroSection() {
         bg-gradient-radial from-blue-600/[0.11] to-transparent blur-[40px]" />
 
       {/* ── Content ── */}
-      <div className="relative z-10 wrap py-16 w-full">
-        <div className="flex flex-col lg:flex-row items-center gap-14 lg:gap-16">
+      <div className="relative z-10 wrap py-10 sm:py-14 lg:py-16 w-full">
+        <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
 
           {/* ───── Left ───── */}
-          <div className="flex-1 max-w-[620px]">
+          <div className="flex-1 w-full lg:max-w-[620px]">
 
             {/* Certified badge */}
             <motion.div
@@ -236,7 +236,7 @@ export default function HeroSection() {
           {/* ───── Right: floating dashboard ───── */}
           <motion.div
             {...anim({ initial: { opacity: 0, x: 24, scale: 0.97 }, animate: { opacity: 1, x: 0, scale: 1 }, transition: { duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] } })}
-            className="flex-1 flex justify-center lg:justify-end w-full lg:max-w-[380px]"
+            className="w-full flex justify-center lg:justify-end lg:flex-1 lg:max-w-[400px]"
           >
             <StatCard />
           </motion.div>

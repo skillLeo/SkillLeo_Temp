@@ -38,17 +38,22 @@ export default function Footer() {
   return (
     <footer className="border-t border-slate-200 dark:border-white/[0.05]
       bg-white dark:bg-[#07070F]">
-      <div className="wrap pt-16 pb-8">
+      <div className="wrap pt-14 pb-8">
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 mb-12">
+        {/* ── Main grid ── */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-10 mb-10">
 
-          {/* Brand */}
-          <div className="lg:col-span-2 space-y-4">
-            <img src={logo} alt="SkillLeo" className="h-8 w-auto" width="160" height="32" loading="lazy" decoding="async" />
+          {/* Brand — full-width on mobile, 2 cols on desktop */}
+          <div className="sm:col-span-2 lg:col-span-2 space-y-5">
+            <img src={logo} alt="SkillLeo" className="h-8 w-auto" width="160" height="32"
+              loading="lazy" decoding="async" />
+
             <p className="text-sm text-slate-500 dark:text-slate-500 leading-relaxed max-w-xs">
-              Pakistan's most trusted software development company. Certified by SECP and PSEB. Delivering world-class digital products to 50+ countries since 2018.
+              Pakistan's most trusted software development company. Certified by SECP and PSEB.
+              Delivering world-class digital products to 50+ countries since 2018.
             </p>
+
+            {/* Certification badges */}
             <div className="flex gap-2 flex-wrap">
               {[
                 { l:'SECP Registered', c:'blue' },
@@ -66,16 +71,21 @@ export default function Footer() {
                 </span>
               ))}
             </div>
-            <div className="space-y-2 pt-1">
+
+            {/* Contact info */}
+            <div className="space-y-2.5">
               {[
                 { Icon:Mail,    val:'contact@skillleo.com',  href:'mailto:contact@skillleo.com' },
                 { Icon:Phone,   val:'+92 310 111 1571',       href:'tel:+923101111571' },
                 { Icon:MapPin,  val:'Sargodha, Punjab, Pakistan', href:null },
               ].map(item => (
-                <div key={item.val} className="flex items-center gap-2">
-                  <item.Icon size={13} className="text-slate-400 shrink-0" />
+                <div key={item.val} className="flex items-center gap-2.5">
+                  <item.Icon size={14} className="text-slate-400 shrink-0" />
                   {item.href
-                    ? <a href={item.href} className="text-sm text-slate-500 dark:text-slate-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">{item.val}</a>
+                    ? <a href={item.href}
+                        className="text-sm text-slate-500 dark:text-slate-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                        {item.val}
+                      </a>
                     : <span className="text-sm text-slate-500 dark:text-slate-500">{item.val}</span>
                   }
                 </div>
@@ -83,10 +93,10 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Link columns */}
+          {/* ── Link columns — 2×2 grid on mobile, 1 col each on desktop ── */}
           {Object.entries(COL).map(([group, links]) => (
             <div key={group} className="space-y-4">
-              <h4 className="text-xs font-semibold uppercase tracking-[0.1em]
+              <h4 className="text-xs font-semibold uppercase tracking-[0.12em]
                 text-slate-400 dark:text-slate-600">
                 {group}
               </h4>
@@ -95,11 +105,14 @@ export default function Footer() {
                   <li key={link.l}>
                     {link.href
                       ? <a href={link.href} target="_blank" rel="noopener noreferrer"
-                          className="text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors inline-flex items-center gap-1">
+                          className="text-sm text-slate-600 dark:text-slate-400
+                            hover:text-blue-600 dark:hover:text-blue-400
+                            transition-colors inline-flex items-center gap-1">
                           {link.l} <ExternalLink size={10} className="opacity-50" />
                         </a>
                       : <Link to={link.to}
-                          className="text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                          className="text-sm text-slate-600 dark:text-slate-400
+                            hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                           {link.l}
                         </Link>
                     }
@@ -110,16 +123,17 @@ export default function Footer() {
           ))}
         </div>
 
-        {/* Bottom bar */}
+        {/* ── Bottom bar ── */}
         <div className="pt-6 border-t border-slate-100 dark:border-white/[0.04]
-          flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-xs text-slate-400 dark:text-slate-600">
+          flex flex-col sm:flex-row items-center justify-between gap-2">
+          <p className="text-xs text-slate-400 dark:text-slate-600 text-center sm:text-left">
             © 2025 SkillLeo (SMC-Private) Limited. All rights reserved. Registered in Pakistan.
           </p>
           <p className="text-xs text-slate-400 dark:text-slate-600 font-medium tracking-wide">
             Trusted. Certified. Elite.
           </p>
         </div>
+
       </div>
     </footer>
   );

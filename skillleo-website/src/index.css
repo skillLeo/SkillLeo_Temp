@@ -117,11 +117,13 @@
   .glow-lg  { box-shadow: 0 0 48px rgba(37,99,235,0.35); }
 
   /* ─── Section rhythm ─── */
-  .section { @apply py-24 lg:py-32 px-4 sm:px-6 lg:px-8; }
-  .section-sm { @apply py-16 px-4 sm:px-6 lg:px-8; }
-  .wrap { @apply max-w-7xl mx-auto; }
-  .wrap-md { @apply max-w-5xl mx-auto; }
-  .wrap-sm { @apply max-w-3xl mx-auto; }
+  .section { @apply py-24 lg:py-32; }
+  .section-sm { @apply py-16; }
+  /* All wrap classes carry the horizontal safe-area padding so every
+     component using wrap (even those without .section) stays off the edges */
+  .wrap    { @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-10; }
+  .wrap-md { @apply max-w-5xl  mx-auto px-4 sm:px-6 lg:px-10; }
+  .wrap-sm { @apply max-w-3xl  mx-auto px-4 sm:px-6 lg:px-10; }
 
   /* ─── Overline label ─── */
   .overline {
