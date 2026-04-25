@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, Component } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ThemeProvider } from './context/ThemeContext';
@@ -26,6 +26,30 @@ function PageSkeleton() {
   );
 }
 
+// Error boundary — prevents a single crashed component from blanking the whole page
+class ErrorBoundary extends Component {
+  constructor(props) { super(props); this.state = { error: null }; }
+  static getDerivedStateFromError(error) { return { error }; }
+  render() {
+    if (this.state.error) {
+      return (
+        <div className="min-h-[60vh] flex items-center justify-center px-6">
+          <div className="text-center max-w-sm">
+            <p className="text-slate-400 text-sm mb-3">Something went wrong loading this section.</p>
+            <button
+              onClick={() => this.setState({ error: null })}
+              className="text-blue-600 text-sm underline underline-offset-2"
+            >
+              Try again
+            </button>
+          </div>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
 const pageVariants = {
   initial: { opacity: 0, y: 10 },
   enter:   { opacity: 1, y: 0, transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } },
@@ -43,6 +67,7 @@ function PageWrapper({ children }) {
 function AppRoutes() {
   const location = useLocation();
   return (
+    <ErrorBoundary>
     <Suspense fallback={<PageSkeleton />}>
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
@@ -54,6 +79,7 @@ function AppRoutes() {
         </Routes>
       </AnimatePresence>
     </Suspense>
+    </ErrorBoundary>
   );
 }
 

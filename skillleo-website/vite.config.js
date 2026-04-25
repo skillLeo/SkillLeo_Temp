@@ -107,9 +107,14 @@ export default defineConfig({
     cssCodeSplit: true,
   },
 
-  // Optimise dev server deps pre-bundling
+  // Pre-bundle deps for dev mode — leaflet must be included (not excluded)
+  // so Vite converts its CommonJS exports to ESM; manualChunks handles
+  // production code-splitting separately.
   optimizeDeps: {
-    include: ['react', 'react-dom', 'react-router-dom', 'framer-motion', 'lucide-react'],
-    exclude: ['leaflet', 'react-leaflet'],
+    include: [
+      'react', 'react-dom', 'react-router-dom',
+      'framer-motion', 'lucide-react',
+      'leaflet', 'react-leaflet',
+    ],
   },
 });

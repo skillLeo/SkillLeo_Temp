@@ -70,7 +70,7 @@ export default function Navbar() {
 
             {/* ── Logo ── */}
             <Link to="/" className="flex items-center gap-2.5 mr-4 shrink-0">
-              <img src={logo} alt="SkillLeo" className="h-[26px] w-auto" width="26" height="26" fetchpriority="high" />
+              <img src={logo} alt="SkillLeo" className="h-[26px] w-auto" width="26" height="26" fetchPriority="high" />
               <span className="font-heading font-extrabold text-[15px] tracking-[-0.02em]
                 text-slate-900 dark:text-white hidden sm:block">
                 SkillLeo
